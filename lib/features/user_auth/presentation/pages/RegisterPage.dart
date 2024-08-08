@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_assistant/UI/gradient_background.dart';
 import 'package:my_assistant/features/user_auth/presentation/firebase_auth_impl/firebase_auth_services.dart';
 import 'package:my_assistant/features/user_auth/presentation/pages/LogInPage.dart';
 import 'package:my_assistant/features/user_auth/presentation/widgets/form_container_widget.dart';
 import 'package:my_assistant/global/common/toast.dart';
-import 'package:my_assistant/screens/progress.dart'; // Make sure to import your ProgressScreen
+import 'package:my_assistant/screens/progress.dart';  // Make sure to import your ProgressScreen
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -36,17 +35,23 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         title: const Text('Регистрација'),
       ),
-      body: GradientBackground(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               const Text(
                 'Регистрирајте се!',
                 style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
+              FormContainerWidget(
+                controller: _emailController,
+                hintText: 'Внесете ја вашата e-mail адреса',
+                isPasswordField: false,
+              ),
+              const SizedBox(height: 10),
               FormContainerWidget(
                 controller: _usernameController,
                 hintText: 'Внесете го вашето корисничко име',
@@ -61,21 +66,17 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: _register,
+                child: _isRegistering ? CircularProgressIndicator(color: Colors.white) : Text(
+                  'Регистрација',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: const Color.fromARGB(255, 6, 26, 42),
+                  backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: _isRegistering
-                    ? const CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                    : const Text(
-                        'Регистрација',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
               ),
               const SizedBox(height: 20),
               Row(
@@ -83,30 +84,28 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   const Text(
                     "Веќе имаш профил?",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600),
+                    style: TextStyle(color: Colors.black),
                   ),
                   const SizedBox(width: 5),
                   GestureDetector(
                     onTap: () {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const LogInPage()),
+                        MaterialPageRoute(builder: (context) => const LogInPage()),
                         (route) => false,
                       );
                     },
                     child: const Text(
                       "Најавете се тука!",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blue,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ],
               ),
-            ]),
+            ],
           ),
         ),
       ),
@@ -122,8 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user =
-        await _auth.registerWithEmailAndPass(email, password, username);
+    User? user = await _auth.registerWithEmailAndPass(email, password, username);
 
     setState(() {
       _isRegistering = false;

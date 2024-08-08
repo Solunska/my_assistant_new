@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_assistant/UI/gradient_background.dart';
 import 'package:my_assistant/screens/methods.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_assistant/features/user_auth/presentation/pages/LogInPage.dart';
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
@@ -59,7 +60,12 @@ class StartScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
-                  Navigator.pushNamed(context, '/login');
+                    Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LogInPage(),
+                  ),
+                );
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
@@ -71,7 +77,7 @@ class StartScreen extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'ЧАО ЧАО!',
+                'Ова поле е за мама и тато',
                   style: TextStyle(color: Color.fromARGB(255, 135, 13, 4),fontSize: 20),
                 ),
               ),
