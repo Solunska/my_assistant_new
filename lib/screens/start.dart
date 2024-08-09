@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_assistant/UI/gradient_background.dart';
 import 'package:my_assistant/screens/methods.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_assistant/features/user_auth/presentation/pages/LogInPage.dart';
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
