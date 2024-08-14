@@ -60,7 +60,7 @@ class QuestionsState extends State<Questions> {
     currentItem = items.first;
   }
 
- void checkAnswer(String answer) {
+void checkAnswer(String answer) {
   setState(() {
     if (answer == currentItem.title) {
       _confettiController.play();
@@ -69,8 +69,14 @@ class QuestionsState extends State<Questions> {
       Provider.of<ScoreProvider>(context, listen: false)
           .updateScore(widget.category, 5, true); // Adjust score value as needed
 
-      Future.delayed(const Duration(seconds: 2), () {
-        setupQuestion();
+      // Prepare the next question first
+      setupQuestion();
+
+      // Delay only the confetti and message reset
+      Future.delayed(const Duration(seconds: 1), () {
+        setState(() {
+          message = ''; // Clear the message after confetti animation
+        });
       });
     } else {
       message = 'ГРЕШНО, ОБИДИ СЕ ПОВТОРНО!';
@@ -83,6 +89,7 @@ class QuestionsState extends State<Questions> {
     }
   });
 }
+
 
   @override
   Widget build(BuildContext context) {
