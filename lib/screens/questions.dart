@@ -4,7 +4,9 @@ import 'package:my_assistant/UI/gradient_background.dart';
 import 'package:my_assistant/classes/number.dart';
 import 'package:my_assistant/classes/food.dart';
 import 'package:my_assistant/classes/greetings.dart';
+import 'package:my_assistant/classes/score_provider.dart';
 import 'package:my_assistant/classes/shape.dart';
+import 'package:provider/provider.dart';
 
 class Questions extends StatefulWidget {
   final String label;
@@ -58,19 +60,29 @@ class QuestionsState extends State<Questions> {
     currentItem = items.first;
   }
 
-  void checkAnswer(String answer) {
-    setState(() {
-      if (answer == currentItem.title) {
-        _confettiController.play();
-        Future.delayed(const Duration(seconds: 2), () {
-          setupQuestion();
-        });
-      } else {
-        message = 'ГРЕШНО, ОБИДИ СЕ ПОВТОРНО!';
-        disabledAnswers.add(answer); // Add incorrect answer to disabled list
-      }
-    });
-  }
+ void checkAnswer(String answer) {
+  setState(() {
+    if (answer == currentItem.title) {
+      _confettiController.play();
+
+      // Update the score for the correct answer
+      Provider.of<ScoreProvider>(context, listen: false)
+          .updateScore(widget.category, 5, true); // Adjust score value as needed
+
+      Future.delayed(const Duration(seconds: 2), () {
+        setupQuestion();
+      });
+    } else {
+      message = 'ГРЕШНО, ОБИДИ СЕ ПОВТОРНО!';
+
+      // Update the score for the incorrect answer
+      Provider.of<ScoreProvider>(context, listen: false)
+          .updateScore(widget.category, 2, false); // Adjust score value as needed
+
+      disabledAnswers.add(answer); // Add incorrect answer to disabled list
+    }
+  });
+}
 
   @override
   Widget build(BuildContext context) {

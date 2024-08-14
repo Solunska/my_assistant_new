@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_assistant/UI/button.dart';
 import 'package:my_assistant/UI/gradient_background.dart';
+import 'package:my_assistant/classes/score_provider.dart';
 import 'package:my_assistant/screens/start.dart';
+import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class ProgressScreen extends StatefulWidget {
   ProgressScreen({super.key});
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,6 +31,12 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Retrieve the scores using ScoreProvider
+    final scoreProvider = Provider.of<ScoreProvider>(context);
+    final shapesScore = scoreProvider.getScore('shapes');
+    final numbersScore = scoreProvider.getScore('numbers');
+    // Add other categories as needed
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Напредок'),
@@ -85,11 +92,15 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
                     children: [
-                      _buildStatCard('Најдобар резултат',
-                          '0'), // Replace '0' with actual best score
-                      _buildStatCard('Најслаб резултат',
-                          '0'), // Replace '0' with actual worst score
-                      // Add more cards if needed
+                      _buildStatCard(
+                          'Shapes - Најдобар резултат', shapesScore.bestScore.toString()),
+                      _buildStatCard(
+                          'Shapes - Најслаб резултат', shapesScore.worstScore.toString()),
+                      _buildStatCard(
+                          'Numbers - Најдобар резултат', numbersScore.bestScore.toString()),
+                      _buildStatCard(
+                          'Numbers - Најслаб резултат', numbersScore.worstScore.toString()),
+                      // Add more cards for other categories
                     ],
                   ),
                 ),
