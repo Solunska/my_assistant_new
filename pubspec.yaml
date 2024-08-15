@@ -95,10 +95,13 @@ flutter:
     - assets/food/pear.png
     - assets/food/watermelon.png
     - assets/shapes/circle.png
-    - assets/shapes/circle2.png
     - assets/shapes/triangle.png
     - assets/shapes/rectangle.png
+    - assets/shapes/diamond.png
+    - assets/shapes/elipse.png
+    - assets/shapes/heart.png
     - assets/shapes/square.png
+    - assets/shapes/star.png
     - assets/audio/hello.mp3
     - assets/audio/good-morning.mp3
     - assets/audio/good-night.mp3
