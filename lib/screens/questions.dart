@@ -23,6 +23,7 @@ class QuestionsState extends State<Questions> {
   List<String> disabledAnswers = [];
   dynamic currentItem;
   String message = '';
+  int currentQuestionIndex = 0;
   late ConfettiController _confettiController;
 
   @override
@@ -42,6 +43,7 @@ class QuestionsState extends State<Questions> {
       items = List<dynamic>.from(foods);
     }
 
+    items.shuffle(); // Randomize the order of items
     setupQuestion();
   }
 
@@ -52,44 +54,56 @@ class QuestionsState extends State<Questions> {
   }
 
   void setupQuestion() {
-    items.shuffle();
-    answers =
-        items.take(3).map<String>((item) => item.title as String).toList();
-    answers.shuffle();
-    disabledAnswers.clear();
-    currentItem = items.first;
+    if (currentQuestionIndex < items.length) {
+      currentItem = items[currentQuestionIndex];
+
+      // Ensure the correct answer is always included, then fill the rest randomly
+      List<String> otherOptions = items
+          .where((item) => item.title != currentItem.title)
+          .map<String>((item) => item.title as String)
+          .toList();
+      otherOptions.shuffle();
+
+      answers = [currentItem.title, ...otherOptions.take(2)];
+      answers.shuffle();
+
+      disabledAnswers.clear();
+    } else {
+      // Show completion message on the same screen
+      setState(() {
+        message = 'Честитки другарче! Ги одговори сите прашања!';
+      });
+    }
   }
 
-void checkAnswer(String answer) {
-  setState(() {
-    if (answer == currentItem.title) {
-      _confettiController.play();
+  void checkAnswer(String answer) {
+    setState(() {
+      if (answer == currentItem.title) {
+        _confettiController.play();
 
-      // Update the score for the correct answer
-      Provider.of<ScoreProvider>(context, listen: false)
-          .updateScore(widget.category, 5, true); // Adjust score value as needed
+        // Update the score for the correct answer
+        Provider.of<ScoreProvider>(context, listen: false)
+            .updateScore(widget.category, 5, true); // Adjust score value as needed
 
-      // Prepare the next question first
-      setupQuestion();
+        currentQuestionIndex++;
 
-      // Delay only the confetti and message reset
-      Future.delayed(const Duration(seconds: 1), () {
-        setState(() {
-          message = ''; // Clear the message after confetti animation
-        });
-      });
-    } else {
-      message = 'ГРЕШНО, ОБИДИ СЕ ПОВТОРНО!';
+        // Prepare the next question first
+        setupQuestion();
+      } else {
+        message = 'ГРЕШНО, ОБИДИ СЕ ПОВТОРНО!';
 
-      // Update the score for the incorrect answer
-      Provider.of<ScoreProvider>(context, listen: false)
-          .updateScore(widget.category, 2, false); // Adjust score value as needed
+        // Update the score for the incorrect answer
+        Provider.of<ScoreProvider>(context, listen: false)
+            .updateScore(widget.category, 2, false); // Adjust score value as needed
 
-      disabledAnswers.add(answer); // Add incorrect answer to disabled list
-    }
-  });
-}
+        disabledAnswers.add(answer); // Add incorrect answer to disabled list
+      }
+    });
+  }
 
+  void navigateToCategoriesScreen() {
+    Navigator.of(context).pop(); // Navigate back to the categories screen
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,53 +146,81 @@ void checkAnswer(String answer) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    for (var answer in answers)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: SizedBox(
-                          width: 250,
-                          height: 75,
-                          child: ElevatedButton(
-                            onPressed: disabledAnswers.contains(answer)
-                                ? null
-                                : () => checkAnswer(answer),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 30,
-                                vertical: 15,
+                    if (currentQuestionIndex < items.length) ...[
+                      for (var answer in answers)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: SizedBox(
+                            width: 250,
+                            height: 75,
+                            child: ElevatedButton(
+                              onPressed: disabledAnswers.contains(answer)
+                                  ? null
+                                  : () => checkAnswer(answer),
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 30,
+                                  vertical: 15,
+                                ),
+                                textStyle: const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black, // Text color
+                                ),
+                                backgroundColor: disabledAnswers.contains(answer)
+                                    ? Colors.red
+                                    : Colors.white,
+                                // Background color
                               ),
-                              textStyle: const TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black, // Text color
-                              ),
-                              backgroundColor: disabledAnswers.contains(answer)
-                                  ? Colors.red
-                                  : Colors.white,
-                              // Background color
-                            ),
-                            child: Text(
-                              answer,
-                              style: const TextStyle(
-                                color: Colors.black, // Text color
+                              child: Text(
+                                answer,
+                                style: const TextStyle(
+                                  color: Colors.black, // Text color
+                                ),
                               ),
                             ),
                           ),
                         ),
+                      const SizedBox(height: 60),
+                      SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: Image.asset(currentItem.image),
                       ),
-                    const SizedBox(height: 60),
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Image.asset(currentItem.image),
-                    ),
-                    Text(
-                      message,
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold
+                      Text(
+                        message,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
-                    ),
+                    ] else ...[
+                      Text(
+                        message,
+                        style: const TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green, // Green color for the congratulatory message
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 30),
+                      ElevatedButton(
+                        onPressed: navigateToCategoriesScreen,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white, // More noticeable button color
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 40,
+                            vertical: 20,
+                          ),
+                          textStyle: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: const Text('Да играме нешто друго!'),
+                      ),
+                    ],
                   ],
                 ),
               ),
