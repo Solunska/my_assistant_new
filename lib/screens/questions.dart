@@ -6,6 +6,7 @@ import 'package:my_assistant/classes/food.dart';
 import 'package:my_assistant/classes/greetings.dart';
 import 'package:my_assistant/classes/score_provider.dart';
 import 'package:my_assistant/classes/shape.dart';
+import 'package:my_assistant/screens/progress.dart';
 import 'package:provider/provider.dart';
 
 class Questions extends StatefulWidget {
@@ -104,6 +105,15 @@ class QuestionsState extends State<Questions> {
   void navigateToCategoriesScreen() {
     Navigator.of(context).pop(); // Navigate back to the categories screen
   }
+    void navigateToProgressScreen() {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const ProgressScreen(),
+    ),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -219,6 +229,22 @@ class QuestionsState extends State<Questions> {
                           ),
                         ),
                         child: const Text('Да играме нешто друго!'),
+                      ),
+                      const SizedBox(height: 30),
+                       ElevatedButton(
+                        onPressed: navigateToProgressScreen,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white, // More noticeable button color
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 40,
+                            vertical: 20,
+                          ),
+                          textStyle: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: const Text('Следи го напредокот!'),
                       ),
                     ],
                   ],

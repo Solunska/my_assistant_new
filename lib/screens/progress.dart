@@ -1,37 +1,22 @@
+// progress_screen.dart
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_assistant/UI/button.dart';
 import 'package:my_assistant/UI/gradient_background.dart';
 import 'package:my_assistant/classes/score_provider.dart';
-import 'package:my_assistant/screens/start.dart';
+import 'package:my_assistant/screens/methods.dart';
 import 'package:provider/provider.dart';
 
 class ProgressScreen extends StatefulWidget {
-  ProgressScreen({super.key});
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  const ProgressScreen({super.key});
 
   @override
   State<ProgressScreen> createState() => _ProgressScreenState();
 }
 
 class _ProgressScreenState extends State<ProgressScreen> {
-  User? _currentUser;
-
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentUser();
-  }
-
-  void _getCurrentUser() {
-    setState(() {
-      _currentUser = widget._auth.currentUser;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // Retrieve the scores using ScoreProvider
     final scoreProvider = Provider.of<ScoreProvider>(context);
     final shapesScore = scoreProvider.getScore('shapes');
     final numbersScore = scoreProvider.getScore('numbers');
@@ -59,32 +44,21 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20.0),
-                _currentUser != null
-                    ? Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 40.0,
-                            backgroundImage: NetworkImage(_currentUser!
-                                    .photoURL ??
-                                'https://example.com/default-avatar.png'), // Provide a default avatar URL
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            'E-mail адреса: ${_currentUser!.email}',
-                            style: const TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            'Корисничко име: ${_currentUser!.displayName ?? 'No username'}',
-                            style: const TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      )
-                    : const Text(
-                        'Моментално нема најавен корисник',
-                        style: TextStyle(fontSize: 18.0),
-                      ),
+                CircleAvatar(
+                  radius: 40.0,
+                  backgroundImage: AssetImage('assets/parents.png'), // Load asset image properly
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'E-mail адреса: ${FirebaseAuth.instance.currentUser?.email ?? 'No email'}',
+                  style: const TextStyle(
+                      fontSize: 18.0, fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  'Корисничко име: ${FirebaseAuth.instance.currentUser?.displayName ?? 'No username'}',
+                  style: const TextStyle(
+                      fontSize: 18.0, fontWeight: FontWeight.w500),
+                ),
                 const SizedBox(height: 30.0),
                 Expanded(
                   child: GridView.count(
@@ -110,7 +84,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const StartScreen(),
+                        builder: (context) => const LearningMethodsScreen(),
                       ),
                     );
                   },
