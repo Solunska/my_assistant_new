@@ -39,7 +39,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   style: TextStyle(
                     color: Color.fromARGB(255, 6, 26, 42),
                     fontWeight: FontWeight.bold,
-                    fontSize: 32.0,
+                    fontSize: 20.0,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -67,13 +67,13 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     mainAxisSpacing: 10.0,
                     children: [
                       _buildStatCard(
-                          'Shapes - Најдобар резултат', shapesScore.bestScore.toString()),
+                          'Форми - Најдобар резултат', shapesScore.bestScore.toString()),
                       _buildStatCard(
-                          'Shapes - Најслаб резултат', shapesScore.worstScore.toString()),
+                          'Форми - Најслаб резултат', shapesScore.worstScore.toString()),
                       _buildStatCard(
-                          'Numbers - Најдобар резултат', numbersScore.bestScore.toString()),
+                          'Броеви - Најдобар резултат', numbersScore.bestScore.toString()),
                       _buildStatCard(
-                          'Numbers - Најслаб резултат', numbersScore.worstScore.toString()),
+                          'Броеви - Најслаб резултат', numbersScore.worstScore.toString()),
                       // Add more cards for other categories
                     ],
                   ),
@@ -112,7 +112,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 20.0,
+                fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
             ),

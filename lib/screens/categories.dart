@@ -52,11 +52,12 @@ class CategoriesScreen extends StatelessWidget {
       body: GradientBackground(
         child: Center(
           child: Column(
+            
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(),
               Container(
-                height: 600,
+                height: 500,
                 padding: const EdgeInsets.all(10),
                 margin: const EdgeInsets.only(top: 60),
                 child: GridView.count(

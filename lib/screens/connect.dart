@@ -51,168 +51,179 @@ class ConnectState extends State<Connect> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
-        child: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 45,
+    return GradientBackground(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(80),
+          child: AppBar(
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                size: 45,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          title: Text(
-            widget.label,
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
+            title: Text(
+              widget.label,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          backgroundColor: const Color(0xFFF0F0F6),
-          iconTheme: const IconThemeData(
-            color: Color.fromARGB(255, 6, 26, 42),
-          ),
-          titleTextStyle: const TextStyle(
-            color: Color.fromARGB(255, 6, 26, 42),
-            fontSize: 24,
-            fontWeight: FontWeight.w900,
+            backgroundColor: const Color(0xFFF0F0F6),
+            iconTheme: const IconThemeData(
+              color: Color.fromARGB(255, 6, 26, 42),
+            ),
+            titleTextStyle: const TextStyle(
+              color: Color.fromARGB(255, 6, 26, 42),
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+            ),
           ),
         ),
-      ),
-      body:GradientBackground(child: allMatched
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'БРАВО!',
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: initializeGame,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          const Color(0xFFFF66B3), // background color
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 15),
-                      textStyle: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    child: const Text(
-                      'ИГРАЈ ПОВТОРНО',
+        body: allMatched
+            ? Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'БРАВО!',
                       style: TextStyle(
-                        color: Colors.white,
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 255, 255),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          : SingleChildScrollView(
-            child: Row(
-                children: [
-                  // Left column with images
-                  Expanded(
-                    child: Column(
-                      children: List.generate(shuffledImages.length, (index) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              if (selectedImagesIndex.contains(index)) {
-                                selectedImagesIndex.remove(index);
-                              } else {
-                                if (selectedImagesIndex.length < 2) {
-                                  selectedImagesIndex.add(index);
-                                }
-                              }
-                              checkConnections();
-                            });
-                          },
-                          child: Container(
-                            height: 100,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 20.0),
-                            color: selectedImagesIndex.contains(index)
-                                ? Colors.blue.withOpacity(0.5)
-                                : Colors.transparent,
-                            child: ListTile(
-                              leading: SizedBox(
-                                width: 100,
-                                height: 100,
-                                child:
-                                    Image.asset(getImage(shuffledImages[index])),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: initializeGame,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color(0xFFFF66B3), // background color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 15),
+                        textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: const Text(
+                        'ИГРАЈ ПОВТОРНО',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
-                  // Right column with titles
-                  Expanded(
-                    child: Column(
-                      children: List.generate(shuffledTitles.length, (index) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              if (selectedTitlesIndex.contains(index)) {
-                                selectedTitlesIndex.remove(index);
-                              } else {
-                                if (selectedTitlesIndex.length < 2) {
-                                  selectedTitlesIndex.add(index);
+                  ],
+                ),
+              )
+            : SingleChildScrollView(
+                child: Row(
+                  children: [
+                    // Left column with images
+                    Expanded(
+                      child: Column(
+                        children: List.generate(shuffledImages.length, (index) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (selectedImagesIndex.contains(index)) {
+                                  selectedImagesIndex.remove(index);
+                                } else {
+                                  if (selectedImagesIndex.length < 2) {
+                                    selectedImagesIndex.add(index);
+                                  }
                                 }
-                              }
-                              checkConnections();
-                            });
-                          },
-                          child: Container(
-                            height: 100,
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            color: selectedTitlesIndex.contains(index)
-                                ? Colors.blue.withOpacity(0.5)
-                                : Colors.transparent,
-                            child: ListTile(
-                              title: SizedBox(
-                                height: 60,
-                                child: Center(
-                                  child: Container(
-                                    width: 200,
-                                    height: 300,
-                                    padding: const EdgeInsets.only(
-                                        top: 15, bottom: 15),
-                                    color:
-                                        const Color.fromARGB(255, 255, 255, 255),
-                                    child: Text(
-                                      getTitle(shuffledTitles[index]),
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign.center,
+                                checkConnections();
+                              });
+                            },
+                            child: Container(
+                              height: 100,
+                              width: 200,
+                              alignment: Alignment.center,
+                              color: selectedImagesIndex.contains(index)
+                                  ? Colors.blue.withOpacity(0.5)
+                                  : Colors.transparent,
+                              child: ListTile(
+                                leading: SizedBox(
+                                  width: 150,
+                                  height: 120,
+                                  child: Center(
+                                    // Center the image vertically
+                                    child: Image.asset(
+                                      getImage(shuffledImages[index]),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                      ),
                     ),
-                  ),
-                ],
+                    // Right column with titles
+                    Expanded(
+                      child: Column(
+                        children: List.generate(shuffledTitles.length, (index) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (selectedTitlesIndex.contains(index)) {
+                                  selectedTitlesIndex.remove(index);
+                                } else {
+                                  if (selectedTitlesIndex.length < 2) {
+                                    selectedTitlesIndex.add(index);
+                                  }
+                                }
+                                checkConnections();
+                              });
+                            },
+                            child: Container(
+                              height: 100,
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                              color: selectedTitlesIndex.contains(index)
+                                  ? Colors.blue.withOpacity(0.5)
+                                  : Colors.transparent,
+                              child: ListTile(
+                                title: SizedBox(
+                                  height: 100,
+                                  child: Center(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 200,
+                                      height: 100,
+                                      color: const Color(0xFFD9D9D9),
+                                      child: widget.category == 'numbers'
+                                          ? Image.asset(getTitle(shuffledTitles[
+                                              index])) // Display image for numbers
+                                          : Text(
+                                              getTitle(shuffledTitles[
+                                                  index]), // Display title for others
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-          ),) 
+      ),
     );
   }
 
@@ -285,7 +296,7 @@ class ConnectState extends State<Connect> {
 
   String getTitle(dynamic item) {
     if (item is Number) {
-      return item.title;
+      return item.numbersImage;
     } else if (item is Shape) {
       return item.title;
     } else if (item is Greeting) {
