@@ -20,6 +20,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
     final scoreProvider = Provider.of<ScoreProvider>(context);
     final shapesScore = scoreProvider.getScore('shapes');
     final numbersScore = scoreProvider.getScore('numbers');
+    final foodScore=scoreProvider.getScore('food');
+    final greetingsScore=scoreProvider.getScore('greetings');
     // Add other categories as needed
 
     return Scaffold(
@@ -74,6 +76,14 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           'Броеви - Најдобар резултат', numbersScore.bestScore.toString()),
                       _buildStatCard(
                           'Броеви - Најслаб резултат', numbersScore.worstScore.toString()),
+                      _buildStatCard(
+                          'Храна - Најдобар резултат', foodScore.bestScore.toString()),
+                      _buildStatCard(
+                          'Храна - Најслаб резултат', foodScore.worstScore.toString()),
+                      _buildStatCard(
+                          'Поздрави - Најдобар резултат', greetingsScore.bestScore.toString()),
+                      _buildStatCard(
+                          'Поздрави - Најслаб резултат', greetingsScore.worstScore.toString()),
                       // Add more cards for other categories
                     ],
                   ),
