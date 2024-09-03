@@ -210,7 +210,7 @@ class QuestionsState extends State<Questions> {
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green, // Green color for the congratulatory message
+                          color: Colors.white, // Green color for the congratulatory message
                         ),
                         textAlign: TextAlign.center,
                       ),
