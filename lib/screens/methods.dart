@@ -52,7 +52,7 @@ class LearningMethodsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 10),
-                Image.asset('assets/learning.png',
+                Image.asset('assets/communication.png',
                     width: 250, height: 250, fit: BoxFit.contain),
                 const SizedBox(height: 20),
                 Button(
