@@ -20,7 +20,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
     final scoreProvider = Provider.of<ScoreProvider>(context);
     final shapesScore = scoreProvider.getScore('shapes');
     final numbersScore = scoreProvider.getScore('numbers');
-    final foodScore=scoreProvider.getScore('food');
+    final foodScore=scoreProvider.getScore('foods');
     final greetingsScore=scoreProvider.getScore('greetings');
     // Add other categories as needed
 
