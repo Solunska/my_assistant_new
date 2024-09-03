@@ -50,27 +50,76 @@ class NeedsScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("МИ ТРЕБА", style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.bold),),
-              const SizedBox(height: 50,),
-              Button(
-                label: 'ЈАБОЛКО',
-                onPressed: () {
-                  _playAudio('audio/apple.mp3');
-                },
+              const Text(
+                "МИ ТРЕБА",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 30),
+              Expanded(
+                child: SizedBox(
+                  height: 120,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/needs/hrana.png',
+                        height: 60,
+                      ),
+                      const SizedBox(height: 10),
+                      Button(
+                        label: 'ХРАНА',
+                        onPressed: () {
+                          _playAudio('audio/hrana.mp3');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
-              Button(
-                label: 'ВОДА',
-                onPressed: () {
-                  _playAudio('audio/voda.mp3');
-                },
+              Expanded(
+                child: SizedBox(
+                  height: 120,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/needs/voda.png',
+                        height: 60,
+                      ),
+                      const SizedBox(height: 10),
+                      Button(
+                        label: 'ВОДА',
+                        onPressed: () {
+                          _playAudio('audio/voda.mp3');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
-              Button(
-                label: 'КНИГА',
-                onPressed: () {
-                  _playAudio('audio/kniga.mp3');
-                },
+              Expanded(
+                child: SizedBox(
+                  height: 120,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/needs/pomos.png',
+                        height: 60,
+                      ),
+                      const SizedBox(height: 10),
+                      Button(
+                        label: 'ПОМОШ',
+                        onPressed: () {
+                          _playAudio('audio/pomos.mp3');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

@@ -73,6 +73,9 @@ flutter:
     - assets/numbers.png
     - assets/communication.png
     - assets/parents.png
+    - assets/needs/hrana.png
+    - assets/needs/voda.png
+    - assets/needs/pomos.png
     - assets/numbers/1.png
     - assets/numbers/2.png
     - assets/numbers/3.png
@@ -111,6 +114,9 @@ flutter:
     - assets/shapes/square.png
     - assets/shapes/star.png
     - assets/audio/hello.mp3
+    - assets/audio/voda.mp3
+    - assets/audio/hrana.mp3
+    - assets/audio/pomos.mp3
     - assets/audio/good-morning.mp3
     - assets/audio/good-night.mp3
     - assets/audio/bye.mp3
