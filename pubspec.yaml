@@ -74,8 +74,13 @@ flutter:
     - assets/communication.png
     - assets/parents.png
     - assets/needs/hrana.png
+    - assets/needs/muzika.png
     - assets/needs/voda.png
     - assets/needs/pomos.png
+    - assets/needs/srekno.png
+    - assets/needs/tazno.png
+    - assets/needs/izmoreno.png
+    - assets/needs/mesto.png
     - assets/numbers/1.png
     - assets/numbers/2.png
     - assets/numbers/3.png
@@ -117,6 +122,11 @@ flutter:
     - assets/audio/voda.mp3
     - assets/audio/hrana.mp3
     - assets/audio/pomos.mp3
+    - assets/audio/srekno.mp3
+    - assets/audio/izmoreno.mp3
+    - assets/audio/mesto.mp3
+    - assets/audio/tazno.mp3
+    - assets/audio/muzika.mp3
     - assets/audio/good-morning.mp3
     - assets/audio/good-night.mp3
     - assets/audio/bye.mp3

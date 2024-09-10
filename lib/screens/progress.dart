@@ -46,7 +46,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20.0),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 40.0,
                   backgroundImage: AssetImage('assets/parents.png'), // Load asset image properly
                 ),

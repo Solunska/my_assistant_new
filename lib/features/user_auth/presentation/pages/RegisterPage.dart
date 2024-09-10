@@ -8,7 +8,7 @@ import 'package:my_assistant/global/common/toast.dart';
 import 'package:my_assistant/screens/progress.dart';  // Make sure to import your ProgressScreen
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -68,16 +68,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: _register,
-                  child: _isRegistering ? CircularProgressIndicator(color: Colors.white) : Text(
-                    'Регистрација',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
                     backgroundColor: const Color.fromARGB(255, 6, 26, 42),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
+                  ),
+                  child: _isRegistering ? const CircularProgressIndicator(color: Colors.white) : const Text(
+                    'Регистрација',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -132,8 +132,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
     if (user != null) {
       Navigator.pushAndRemoveUntil(
+        // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (context) => ProgressScreen()),
+        MaterialPageRoute(builder: (context) => const ProgressScreen()),
         (route) => false,
       );
     } else {

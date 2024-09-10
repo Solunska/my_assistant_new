@@ -8,11 +8,12 @@ class CommunicationScreen extends StatelessWidget {
   final double appBarFontSize;
   final String gameMode;
 
-  const CommunicationScreen(
-      {super.key,
-      required this.appBarLabel,
-      required this.appBarFontSize,
-      required this.gameMode});
+  const CommunicationScreen({
+    super.key,
+    required this.appBarLabel,
+    required this.appBarFontSize,
+    required this.gameMode,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class CommunicationScreen extends StatelessWidget {
           ),
           titleTextStyle: const TextStyle(
             color: Color.fromARGB(255, 6, 26, 42),
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: FontWeight.w900,
           ),
         ),
@@ -51,54 +52,53 @@ class CommunicationScreen extends StatelessWidget {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 350,
+                  width: 400,
                   height: 100,
                   child: Button(
                     label: 'МИ ТРЕБА...',
                     onPressed: () {
                       Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NeedsScreen(),
-                    ),
-                  );
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NeedsScreen(category: 'needs'),
+                        ),
+                      );
                     },
                   ),
                 ),
-                const SizedBox(height: 20,),
+
+                const SizedBox(height: 20),
                 SizedBox(
-                  width: 350,
+                  width: 400,
                   height: 100,
                   child: Button(
-                    label: 'САКАМ...',
+                    label: 'СЕ ЧУВСТУВАВAM...',
                     onPressed: () {
-                      
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NeedsScreen(category: 'feel'),
+                        ),
+                      );
                     },
                   ),
                 ),
-                 const SizedBox(height: 20,),
+                const SizedBox(height: 20),
                 SizedBox(
-                  width: 350,
+                  width: 400,
                   height: 100,
                   child: Button(
-                    label: 'ДАЛИ ИМА...?',
+                    label: 'НЕ МИ СЕ ДОПАЃА...',
                     onPressed: () {
-                      
-                    },
-                  ),
-                ),
-                 const SizedBox(height: 20,),
-                SizedBox(
-                  width: 350,
-                  height: 100,
-                  child: Button(
-                    label: 'ЌЕ...',
-                    onPressed: () {
-                      
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NeedsScreen(category: 'dislike'),
+                        ),
+                      );
                     },
                   ),
                 ),

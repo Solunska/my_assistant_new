@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_assistant/UI/gradient_background.dart';
@@ -8,7 +9,7 @@ import 'package:my_assistant/global/common/toast.dart';
 import 'package:my_assistant/screens/progress.dart'; // Import the CategoriesScreen
 
 class LogInPage extends StatefulWidget {
-  const LogInPage({Key? key}) : super(key: key);
+  const LogInPage({super.key});
 
   @override
   State<LogInPage> createState() => _LogInPageState();
@@ -17,8 +18,8 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   final FirebaseAuthService _auth = FirebaseAuthService();
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isLogingIn = false;
 
   @override
