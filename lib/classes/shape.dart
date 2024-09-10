@@ -30,17 +30,17 @@ List<Shape> shapes = [
   Shape(
       title: 'ДИЈАМАНТ',
       image: 'assets/shapes/diamond.png',
-      audio: 'audio/rectangle.mp3'),
+      audio: 'audio/dijamant.mp3'),
       Shape(
       title: 'ЕЛИПСА',
       image: 'assets/shapes/elipse.png',
-      audio: 'audio/rectangle.mp3'),
+      audio: 'audio/elipsa.mp3'),
       Shape(
       title: 'СРЦЕ',
       image: 'assets/shapes/heart.png',
-      audio: 'audio/rectangle.mp3'),
+      audio: 'audio/srce.mp3'),
       Shape(
-      title: 'ЗВЕЗДА',
+      title: 'ЅВЕЗДА',
       image: 'assets/shapes/star.png',
-      audio: 'audio/rectangle.mp3'),
+      audio: 'audio/dzvezda.mp3'),
 ];
