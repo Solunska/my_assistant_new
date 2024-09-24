@@ -17,7 +17,7 @@ List<Number> numbers = [
       title: 'ЕДЕН',
       image: 'assets/numbers/1.png',
       audio: 'audio/one.mp3',
-      numbersImage: 'assets/numbers/five.png'),
+      numbersImage: 'assets/numbers/one.png'),
   Number(
       title: 'ДВА',
       image: 'assets/numbers/2.png',
@@ -47,12 +47,12 @@ List<Number> numbers = [
       title: 'СЕДУМ',
       image: 'assets/numbers/7.png',
       audio: 'audio/seven.mp3',
-      numbersImage: 'assets/numbers/five.png'),
+      numbersImage: 'assets/numbers/seven.png'),
   Number(
       title: 'ОСУМ',
       image: 'assets/numbers/8.png',
       audio: 'audio/eight.mp3',
-      numbersImage: 'assets/numbers/five.png'),
+      numbersImage: 'assets/numbers/eight.png'),
   Number(
       title: 'ДЕВЕТ',
       image: 'assets/numbers/9.png',
@@ -62,5 +62,5 @@ List<Number> numbers = [
       title: 'ДЕСЕТ',
       image: 'assets/numbers/10.png',
       audio: 'audio/ten.mp3',
-      numbersImage: 'assets/numbers/five.png'),
+      numbersImage: 'assets/numbers/ten.png'),
 ];
